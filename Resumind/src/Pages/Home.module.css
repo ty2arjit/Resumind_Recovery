@@ -53,6 +53,7 @@
 }
 
 .textSection p span {
+  font-family: "Poppins", sans-serif;
   font-size: 1.25rem;
   background: linear-gradient(90deg, #920ec6 0%, #2c2ffb 50%, #0b90f6 100%);
   background-clip: text;
@@ -73,12 +74,14 @@
 
 
 .textSection p {
+  font-family: "Poppins", sans-serif;
   margin-top: 1rem;
   font-size: 1.125rem;
   color: #4b5563;
 }
 
 .cta {
+  font-family: "Poppins", sans-serif;
   display: inline-block;
   margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;

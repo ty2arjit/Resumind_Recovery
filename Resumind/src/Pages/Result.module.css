@@ -1,5 +1,5 @@
 .page {
-  background: linear-gradient(135deg, #54eaef, #95f4ec, #a9ea80);
+  background: linear-gradient(to right, #f7f1e3, #f5c868);;
   left: 0;
   width: 100vw; /* 100% of viewport width */
   z-index: 9999;
@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #54eaef, #95f4ec, #a9ea80);
+  background: linear-gradient(to right, #f7f1e3, #f5c868);;
   min-height: 100vh;
   margin-right: 100px;
 }

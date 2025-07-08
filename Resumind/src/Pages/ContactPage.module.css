@@ -1,6 +1,6 @@
 .wrapper{
   min-height: 100vh;
-  background: linear-gradient(to right,#bbd66c, #f7f1e3, #f5c868);
+  background: linear-gradient(to right, #f7f1e3, #f5c868);
   display: flex;
   align-items: center;
   justify-content: center;

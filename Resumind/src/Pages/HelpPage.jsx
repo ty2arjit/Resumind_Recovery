@@ -24,11 +24,12 @@ const Help = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1}}
         >
-          <h2>Step 1: Choose your Field</h2>
+          <h2>Step 1: Click on Analyze now</h2>
+          <h2>Step 2: Choose your Field</h2>
           <h3>
              Select the field in which you want to apply for.
           </h3>
-          <h2>Step 2: Choose Your Goal</h2>
+          <h2>Step 3: Choose Your Goal</h2>
           <h3>
             Select Internship or Placement to help us personalize your resume
             feedback.
@@ -41,7 +42,7 @@ const Help = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 2 }}
         >
-          <h2>Step 3: Upload Your Resume</h2>
+          <h2>Step 4: Upload Your Resume</h2>
           <h3>
             Upload your updated resume in PDF/DOCX format for accurate analysis.
           </h3>
@@ -53,7 +54,7 @@ const Help = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 3 }}
         >
-          <h2>Step 4: Get Your Resume Analyzed</h2>
+          <h2>Step 5: Get Your Resume Analyzed</h2>
           <h3>
             Our AI engine extracts key insights and gives you a detailed score
             report.
@@ -66,7 +67,7 @@ const Help = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 4}}
         >
-          <h2>Step 5: Review Your Report</h2>
+          <h2>Step 6: Review Your Report</h2>
           <h3>
             Understand strengths, weaknesses, and get improvement suggestions
             instantly.
