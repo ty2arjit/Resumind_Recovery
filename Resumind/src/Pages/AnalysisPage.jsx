@@ -17,6 +17,8 @@ const MainPage = () => {
     "Civil",
     "Ceramic",
     "Electrical",
+    "Electronics & Communication",
+    "Electronics & Instrumentation",
     "Food Processing",
     "Industrial Design",
     "Mechanical",
@@ -105,8 +107,8 @@ const MainPage = () => {
                 onChange={(e) => setpositionType(e.target.value)}
               >
                 <option value="">Select Purpose</option>
-                <option value="internship">Internship</option>
-                <option value="placement">Placement</option>
+                <option value="Intern">Internship</option>
+                <option value="Placement">Placement</option>
               </select>
             </div>
             <div className={style.uploadGroup}>

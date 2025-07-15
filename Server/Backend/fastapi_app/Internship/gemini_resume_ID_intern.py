@@ -99,7 +99,7 @@ Each section contributes specific marks:
 #At the end of your analysis, **return the following**:
 
 -Don't use integers to start a line/heading or use without full stop because the line breaks after full stop in our UI so I don't want a full stop in between the heading and starting number.  
--Overall Score = XX/100. (XX is the sum of scores in each section that the student got in grading system(C heading))  
+-Overall Score = XX/100. (XX is the sum of scores in each section that the student got in grading system(C heading)). In the complete analysis use the word Overall Score only once because my logic to show meter fills look for the word "Overall Score" so just return this only once as the (sum of scores in all sections/100).  
 -When you get the specific word Section wise analysis as well as the headings in it like Education add : for example Education: , Projects : , etc.  
 
 1. Section by section - analysis starting from “A)” — make it visually clean and readable (line breaks between sections and also after section by section analysis add : and then start the content of it)  

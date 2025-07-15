@@ -6,9 +6,9 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-def resume_analysis_EI_Placement(resume_text, position_type, field):
+def resume_analysis_ID_Placement(resume_text, position_type, field):
     prompt = f""" 
-You are an expert AI Resume Evaluator for an application called **Resumind**. Your task is to evaluate a resume for a **{position_type}** role in the **{field}** domain — with a specific focus on **Electronics and Instrumentation Engineering placements**. You must assess the resume using strict and realistic **ATS-style criteria**, ensuring fairness, accuracy, and precision. Avoid inflating scores or giving marks without evidence.
+You are an expert AI Resume Evaluator for an application called **Resumind**. Your task is to evaluate a resume for a **{position_type}** role in the **{field}** domain — with a specific focus on **Industrial Design placements**. You must assess the resume using strict and realistic **ATS-style criteria**, ensuring fairness, accuracy, and precision. Avoid inflating scores or giving marks without evidence.
 
 Your evaluation must include the following:
 
@@ -23,8 +23,8 @@ Analyze the following resume sections using capital letters in the format (A), (
 - Summary/Objective (if present)  
 - Education  
 - Relevant Coursework  
-- Projects  
-- Technical Skills  
+- Projects / Portfolio  
+- Technical & Design Skills  
 - Work Experience (if any)  
 - Certifications / Achievements  
 - Extra-curricular Activities  
@@ -33,15 +33,14 @@ Analyze the following resume sections using capital letters in the format (A), (
 
 ---
 
-### B) FIELD-SPECIFIC & POSITION-TYPE INSTRUCTIONS (for EI Placement)
+### B) FIELD-SPECIFIC & POSITION-TYPE INSTRUCTIONS (for Industrial Design Placement)
 
-✅ **EI Placement Guidelines:**
-- Prioritize core areas: **Sensors, Transducers, Industrial Instrumentation, Control Systems, Analog/Digital Electronics, PLC & SCADA, Embedded Systems**
-- Reward experience with tools: **MATLAB, LabVIEW, Multisim, Proteus, Simulink, TINA, PSpice, RSLogix, Arduino, Raspberry Pi**
-- Reward practical knowledge of **signal conditioning, DAQ, automation systems, calibration**
-- Projects using **real-time data acquisition, automation circuits, instrumentation for medical/industrial applications** should be highlighted
-- Appreciate internships in **industrial plants, automation companies, or control system design**
-- Penalize irrelevant or overly generic tech stack (like MERN, unless used for dashboard/monitoring)
+✅ **Industrial Design Placement Guidelines:**
+- Prioritize areas like **Product Design, Human-Centered Design, Ergonomics, Sustainable Design, CAD Modeling, Rapid Prototyping**
+- Reward strong **portfolio links** with visuals, case studies, and descriptions of design process (research, ideation, prototyping, testing)
+- Value practical knowledge of tools: **SolidWorks, Rhino, KeyShot, Adobe Suite, Figma, Blender, Fusion 360**
+- Reward internships or design competitions with user-focused or impactful outcomes
+- Penalize resumes lacking portfolio links or with vague project descriptions
 
 ---
 
@@ -57,44 +56,46 @@ Each section contributes specific marks:
   - -2 for formatting or clarity issues  
 
 - **Relevant Coursework** (10 marks)  
-  - +8 for EI-specific subjects (Measurement Systems, Control Theory, Analog Circuits)  
-  - +2 for electives like AI for Automation, IoT Systems  
-  - -2 for missing or vague course listings  
+  - +6 for ID-specific courses (Design Thinking, Aesthetics, Ergonomics)  
+  - +4 for electives like UI/UX, Packaging Design, Materials in Design  
+  - -2 for missing or unclear listings  
 
-- **Projects** (20 marks)  
-  - +6 for sensor-based/automation/embedded systems projects  
-  - +5 for hardware/software integration with working results  
-  - +4 for use of simulation tools and signal analysis  
-  - -2 for missing results or vague objectives  
-  - -1 for grammar issues  
+- **Projects / Portfolio** (20 marks)  
+  - +10 for well-documented portfolio (with link, visuals, user journey, testing)  
+  - +5 for impactful or innovative projects  
+  - +5 for working prototypes, CAD renders, or usability testing  
+  - -3 for no portfolio link  
+  - -2 for vague problem or lack of research phase  
 
-- **Technical Skills** (20 marks)  
-  - +10 for clear structuring (Simulation Tools, Embedded, CAD, Programming)  
-  - +5 for PLC/SCADA/DAQ software  
-  - Penalize non-relevant tech or bloated keyword stuffing  
+- **Technical & Design Skills** (20 marks)  
+  - +5 for CAD tools (Fusion, SolidWorks, Rhino)  
+  - +5 for Visualization & Rendering (KeyShot, Blender)  
+  - +5 for UX/UI tools (Figma, Adobe XD, Illustrator)  
+  - +5 for Sketching, Prototyping, Digital Fabrication (3D Printing, Laser Cutting)  
+  - Penalize irrelevant tech or vague listings  
 
 - **Work Experience / Internships** (10 marks)  
-  - +10 for internships in manufacturing, automation, or R&D labs  
-  - +5 for instrumentation project roles or college-industry collaborations  
-  - -2 for unimpactful or unclear experiences  
+  - +10 for internships in design studios, product teams, or innovation labs  
+  - +5 for freelance or small-scale client work  
+  - -2 for unclear roles or non-design jobs  
 
 - **Achievements & Certifications** (10 marks)  
-  - +5 for participation in automation challenges, conferences, IEEE events  
-  - +5 for certifications in LabVIEW, PLC, MATLAB, SCADA, IoT  
-  - Score based on depth and core relevance  
+  - +5 for design awards, competitions (e.g. iF, Red Dot, Toycathon, SIIC, etc.)  
+  - +5 for certified courses in UI/UX, 3D modeling, prototyping, etc.  
+  - Score based on relevance  
 
 - **Extra-curricular Activities** (10 marks)  
-  - Reward event organization, technical club roles, and industry expos  
-  - Penalize generic, unquantified content  
+  - Reward creative showcases (e.g., design fests, community design work, exhibitions)  
+  - Penalize filler or unrelated content  
 
 - **Contact Info + ATS Formatting** (5 marks)  
-  - +5 for phone, email, LinkedIn, GitHub/portfolio present  
-  - -2 for one missing  
-  - -3 for tables, columns, or hard-to-parse formatting  
+  - +5 for phone, email, LinkedIn, Behance/Portfolio/GitHub  
+  - -2 for missing one  
+  - -3 for multi-column, image-heavy formats  
 
 - **Writing, Grammar, Metrics** (5 marks)  
-  - +5 for structured action statements with values/units (e.g. “calibrated sensor to ±0.2°C”)  
-  - -1 per error or unclear expression
+  - Reward clarity in design storytelling (challenge–approach–impact)  
+  - Penalize spelling/grammar errors, vague statements
 
 ---
 
@@ -118,10 +119,10 @@ Each section contributes specific marks:
 ---
 
 ### EXAMPLES OF GOOD PRACTICES TO ENCOURAGE:
-- “Built smart irrigation system using soil sensors and ESP32 with web dashboard.”
-- “Calibrated RTD sensor with error margin of ±0.2°C using LabVIEW DAQ module.”
-- “Simulated closed-loop control for DC motor using PID in Simulink.”
-- “Completed PLC internship and designed ladder logic for bottling plant automation.”
+- “Redesigned kitchen tool with improved ergonomics; reduced hand strain by 30% (tested via user survey).”
+- “Created fully 3D printed enclosure for wearable device; improved aesthetics and usability.”
+- “Built Figma-based dashboard to monitor student wellness as part of design challenge.”
+- “Portfolio link: www.behance.net/johndesigner (contains detailed case studies).”
 
 Avoid polite inflation. Your job is to help students understand their real standing and improve.
 - After all scores either it is sectionwise analysis score or any score add full stop after that.

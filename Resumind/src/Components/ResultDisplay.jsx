@@ -18,20 +18,39 @@ const ResultDisplay = ({ resultText }) => {
   // Clean and preprocess the raw result
   const cleanedText = resultText
     .replace(/\*+/g, "") // Remove stars
-    .replace(/\s{2,}/g, " ") // Remove extra spaces
-    .replace(/\n/g, "\n") // Normalize newlines
-    .replace(/(?<=\.)\s/g, "\n") // Add line breaks after periods
+    .replace(/•/g, "") // Remove bullets
+    .replace(/ +/g, " ") // Normalize spacing
+    .replace(/\n+/g, " ") // Remove random newlines
+    .replace(/(?<=\w[.?!]) (?=[A-Z])/g, "\n") // Add line breaks after proper sentence endings
+    .replace(/ +\n/g, "\n") // Remove space before newline
+    .replace(/\n +/g, "\n") // Remove space after newline
     .trim();
 
-  const lines = cleanedText.split("\n").filter((line) => line.trim() !== "");
+  // Step 1: Split raw lines
+  const rawLines = cleanedText.split("\n").map(line => line.trim()).filter(line => line);
 
+  // Step 2: Merge broken numbered points (like "7." followed by its sentence)
+  const lines = [];
+  for (let i = 0; i < rawLines.length; i++) {
+    const line = rawLines[i];
+    const nextLine = rawLines[i + 1] || "";
+
+    // Merge if line is only a number with a dot like "6." or "7."
+    if (/^\d+\.$/.test(line) && nextLine) {
+      lines.push(`${line} ${nextLine}`);
+      i++; // Skip next line since it's merged
+    } else {
+      lines.push(line);
+    }
+  }
+
+  // Extract overall score
   const getScore = () => {
     const scoreLine = lines.find((line) => line.includes("Overall Score"));
     return parseInt(scoreLine?.match(/\d+/)?.[0]) || 0;
   };
 
   const OverallScore = getScore();
-
 
   return (
     <motion.div
@@ -50,51 +69,55 @@ const ResultDisplay = ({ resultText }) => {
               style={{
                 width: `${OverallScore}%`,
                 backgroundColor:
-                  OverallScore >= 80 ? "#16a34a" : OverallScore >= 60 ? "#eab308" : "#dc2626",
+                  OverallScore >= 80
+                    ? "#16a34a"
+                    : OverallScore >= 60
+                    ? "#eab308"
+                    : "#dc2626",
               }}
             />
           </div>
-          <span className={styles.scoreText}>Overall Score: {OverallScore}/100</span>
+          <span className={styles.scoreText}>
+            Overall Score: {OverallScore}/100
+          </span>
         </div>
       </div>
 
       {/* Section-wise Analysis */}
-<div className={styles.analysisBody}>
-  {lines.map((line, index) => {
-    const isSectionHeader = /^[0-9]+\.\s|^[A-G]\)/.test(line);
-    const isFinalSuggestions = /Final Suggestions/i.test(line);
-    const isFieldInsights = /Field-Specific Insights/i.test(line);
+      <div className={styles.analysisBody}>
+        {lines.map((line, index) => {
+          const isSectionHeader = /^[0-9]+\.\s|^[A-G]\)/.test(line);
+          const isFinalSuggestions = /Final Suggestions/i.test(line);
+          const isFieldInsights = /Field-Specific Insights/i.test(line);
 
-    if (isSectionHeader) {
-      return (
-        <h3 key={index} className={styles.sectionHeader}>
-          {line.trim()}
-        </h3>
-      );
-    } else if (isFinalSuggestions || isFieldInsights) {
-      return (
-        <h2 key={index} className={styles.specialHeading}>
-          {line.trim()}
-        </h2>
-      );
-    } else {
-      const wrappedLines = wrapLine(line);
-
-      return wrappedLines.map((subline, i) => (
-        <h4 key={`${index}-${i}`} className={styles.pointText}>
-          {i === 0 ? (
-            <>
-              <FaCheckCircle className={styles.icon} /> {subline}
-            </>
-          ) : (
-            subline
-          )}
-        </h4>
-      ));
-    }
-  })}
-</div>
-
+          if (isSectionHeader) {
+            return (
+              <h3 key={index} className={styles.sectionHeader}>
+                {line.trim()}
+              </h3>
+            );
+          } else if (isFinalSuggestions || isFieldInsights) {
+            return (
+              <h2 key={index} className={styles.specialHeading}>
+                {line.trim()}
+              </h2>
+            );
+          } else {
+            const wrappedLines = wrapLine(line);
+            return wrappedLines.map((subline, i) => (
+              <h4 key={`${index}-${i}`} className={styles.pointText}>
+                {i === 0 ? (
+                  <>
+                    <FaCheckCircle className={styles.icon} /> {subline}
+                  </>
+                ) : (
+                  subline
+                )}
+              </h4>
+            ));
+          }
+        })}
+      </div>
     </motion.div>
   );
 };

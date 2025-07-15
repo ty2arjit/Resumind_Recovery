@@ -9,10 +9,12 @@ const ResultPage = () => {
   const result = state?.result;
 
   if (!result) {
+    return(
     <div className={css.noData}>
       <h2>No analysis data found</h2>
       <button onClick={() => navigate("/analyse")}>Go Back</button>
-    </div>;
+    </div>
+    )
   }
 
   console.log("State result:", result);
