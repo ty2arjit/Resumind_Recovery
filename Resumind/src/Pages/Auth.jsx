@@ -27,7 +27,7 @@ const Auth = ({ setAuthenticated }) => {
       : { email: form.email, password: form.password };
   
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/auth/${endpoint}`, payload);
+      const res = await axios.post(`https://resumind-recovery.onrender.com/api/auth/${endpoint}`, payload);
       
       if (res.status === 200 || res.status === 201) {
         const { user, token } = res.data;

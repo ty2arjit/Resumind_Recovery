@@ -49,7 +49,7 @@ const MainPage = () => {
 
     try {
       setLoading(true);  // Showing Loader
-      const res = await axios.post("http://127.0.0.1:8000/analyze", formData, {
+      const res = await axios.post("https://resumind-recovery-1.onrender.com/analyze", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
