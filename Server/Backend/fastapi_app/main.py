@@ -45,7 +45,7 @@ app = FastAPI()
 # Allow requests from your React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # or specify ["http://localhost:3000"]
+    allow_origins=["*"],  # or specify ["http://localhost:3000"]
     allow_methods=["*"],
     allow_headers=["*"],
 )
