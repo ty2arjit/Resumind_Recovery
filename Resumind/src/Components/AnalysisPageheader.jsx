@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./AnalysisPageHeader.module.css";
+import styles from "./AnalysisPageheader.module.css";
 
 const AnalysisPageheader = () => {
   return (
