@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./AnalysisPage.module.css";
 import { motion } from "framer-motion";
-import AnalysisPageheader from "../Components/AnalysisPageHeader";
+import AnalysisPageheader from "../Components/AnalysisPageheader";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
