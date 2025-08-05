@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = ({ setAuthenticated }) => {
   const [isSignUp, setIsSignUp] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     college: "",
@@ -20,6 +21,7 @@ const Auth = ({ setAuthenticated }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
   
     const endpoint = isSignUp ? "signup" : "signin";
     const payload = isSignUp
@@ -27,7 +29,16 @@ const Auth = ({ setAuthenticated }) => {
       : { email: form.email, password: form.password };
   
     try {
-      const res = await axios.post(`https://resumind-recovery.onrender.com/api/auth/${endpoint}`, payload);
+      console.log("Sending request to:", `https://resumind-recovery.onrender.com/api/auth/${endpoint}`);
+      console.log("Payload:", payload);
+      
+      const res = await axios.post(`https://resumind-recovery.onrender.com/api/auth/${endpoint}`, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      console.log("Response:", res.data);
       
       if (res.status === 200 || res.status === 201) {
         const { user, token } = res.data;
@@ -42,7 +53,10 @@ const Auth = ({ setAuthenticated }) => {
       }
     } catch (err) {
       console.error("Axios error:", err);
+      console.error("Error response:", err.response?.data);
       alert(err.response?.data?.error || `${isSignUp ? "Signup" : "Signin"} failed`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,8 +110,8 @@ const Auth = ({ setAuthenticated }) => {
             required
             className={styles.input}
           />
-          <button type="submit" className={styles.button}>
-            {isSignUp ? "Create Account" : "Log In"}
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? "Loading..." : (isSignUp ? "Create Account" : "Log In")}
           </button>
         </form>
         <p className={styles.toggleMsg}>

@@ -26,12 +26,23 @@ router.post("/signup", async (req, res) => {
       password: hashedPassword,
     });
 
+    // Generate JWT token for signup
+    const token = jwt.sign(
+      { id: newUser._id},
+      JWT_Key,
+      {
+        expiresIn: "1d",     
+      }
+    );
+
     res.status(201).json({
       message: "User created Successfully",
       user: newUser,
+      token: token
     });
   } catch (err) {
-    res.status(500).json({ error: "Server error "});
+    console.error("Signup error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -68,7 +79,8 @@ router.post("/signin", async (req, res) => {
       user,
     })
   } catch (err) {
-    res.status(500).json({ error: "Server error "});
+    console.error("Signin error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 })
 

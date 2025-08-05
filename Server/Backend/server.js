@@ -18,13 +18,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: "*",
+  origin: ["http://localhost:5173", "https://resumind-recovery.vercel.app", "https://resumind-recovery-git-main-ty2arjit.vercel.app"],
   credentials: true
 }));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", authRouter);
 app.use("/api", aiRoute);
+
+// Test route to verify backend is working
+app.get('/test', (req, res) => {
+  res.json({ message: 'Backend is working!' });
+});
 
 
 const storage = multer.diskStorage({
