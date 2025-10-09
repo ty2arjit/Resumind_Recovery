@@ -15,7 +15,7 @@ mongoose.connect(MongoDB_URI)
   .catch((err) => console.error("MongoDB connection error: ", err));
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: ["http://localhost:5173", "https://resumind-recovery.vercel.app", "https://resumind-recovery-git-main-ty2arjit.vercel.app"],

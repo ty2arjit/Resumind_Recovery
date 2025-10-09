@@ -49,7 +49,7 @@ const MainPage = () => {
 
     try {
       setLoading(true);  // Showing Loader
-      const res = await axios.post("https://resumind-recovery-1.onrender.com/analyze", formData, {
+      const res = await axios.post("https://resumind-recovery-3.onrender.com", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

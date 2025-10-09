@@ -9,6 +9,40 @@ const router = express.Router();
 const JWT_Key = process.env.JWT_KEY;
 
 
+// Test route that doesn't require MongoDB
+router.post("/test-signup", async (req, res) => {
+  const {name, college, email, password} = req.body;
+
+  try {
+    // Simulate successful signup without database
+    const mockUser = {
+      _id: "mock-user-id",
+      name,
+      college,
+      email,
+      password: "hashed_password"
+    };
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: mockUser._id},
+      JWT_Key || "fallback-secret-key",
+      {
+        expiresIn: "1d",     
+      }
+    );
+
+    res.status(201).json({
+      message: "Test user created Successfully",
+      user: mockUser,
+      token: token
+    });
+  } catch (err) {
+    console.error("Test signup error:", err);
+    res.status(500).json({ error: "Test server error" });
+  }
+});
+
 // Sign Up Route
 router.post("/signup", async (req, res) => {
   const {name, college, email, password} = req.body;
