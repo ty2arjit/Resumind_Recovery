@@ -4,16 +4,10 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const aiRoute = require('./Routes/aiRoutes');
-const mongoose = require('mongoose');
-require('dotenv').config(); 
+const bodyParser = require('body-parser');
 const authRouter = require('./Routes/authRoutes')
-
-
-const MongoDB_URI = process.env.MongoDB_URI;
-mongoose.connect(MongoDB_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error: ", err));
-
+require('./Models/db');
+require('dotenv').config(); 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -23,13 +17,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
-app.use("/api/auth", authRouter);
+app.use("auth", authRouter);
 app.use("/api", aiRoute);
-
-// Test route to verify backend is working
-app.get('/test', (req, res) => {
-  res.json({ message: 'Backend is working!' });
-});
+app.use(bodyParser.json());
 
 
 const storage = multer.diskStorage({
