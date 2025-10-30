@@ -17,7 +17,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
-app.use("auth", authRouter);
+app.use("/auth", authRouter);
 app.use("/api", aiRoute);
 app.use(bodyParser.json());
 
